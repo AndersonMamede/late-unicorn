@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "deploy:generate-project-speculations": "npx supabase functions deploy generate-project-speculations --project-ref cwznuzsvuugzlccafocq --no-verify-jwt"
+  }
+}
