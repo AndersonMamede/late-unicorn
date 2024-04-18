@@ -14,6 +14,8 @@ The frontend project uses Pug + TailwindCSS. All the project's source code is in
 
 ## Frontend project installation
 
+First, set the configuration values in the `/src-frontend/src/assets/config.json` file (all values are required). Then, run the following commands:
+
 ```bash
 # Enter the frontend project directory
 cd src-frontend
