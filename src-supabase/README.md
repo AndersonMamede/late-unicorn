@@ -49,6 +49,8 @@ npx supabase db push
 
 
 ```sql
+
+-- Run in the Supabase Console (SQL Editor)
 SELECT public.set_edge_function_url_secret(
     'PROJECT_SPECULATIONS_API_URL', -- do not change this line
     'YOUR EDGE URL HERE'  -- replace 'YOUR EDGE URL HERE' with the URL obtained earlier
