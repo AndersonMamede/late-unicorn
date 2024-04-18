@@ -14,9 +14,10 @@
     "css": "npm-run-all --sequential css-*",
     "templates": "pug --pretty -o dist/ src/pug/",
     "build": "npm-run-all --sequential clean copy-* templates css",
-    "watch": "npm-run-all build --parallel watch-templates watch-css browsersync",
+    "watch": "npm-run-all build --parallel watch-templates watch-css watch-js browsersync",
     "watch-templates": "npm run templates -- --watch",
-    "watch-css": "tailwindcss build -i src/tailwind/tailwind.css -c src/tailwind/tailwind.config.js -o dist/css/tailwind/tailwind.min.css --minify --watch"
+    "watch-css": "tailwindcss build -i src/tailwind/tailwind.css -c src/tailwind/tailwind.config.js -o dist/css/tailwind/tailwind.min.css --minify --watch",
+    "watch-js": "cpx \"src/assets/js/*.js\" dist/js/ --watch"
   },
   "dependencies": {
     "tailwindcss": "^3.0.7"
