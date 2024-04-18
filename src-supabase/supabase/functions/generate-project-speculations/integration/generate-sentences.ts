@@ -1,5 +1,5 @@
 import OpenAI from "https://deno.land/x/openai@v4.37.1/mod.ts";
-import { IProject } from "../database/Project.ts";
+import { IProject } from "../database/project.ts";
 
 interface GenerateSentencesInput {
   project: IProject;

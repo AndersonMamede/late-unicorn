@@ -1,10 +1,10 @@
-import { SupabaseClient } from "./supabaseClient.ts";
+import { SupabaseClient } from "./supabase.client.ts";
 
 export interface IProject {
   project_id: string;
   name: string;
   description: string;
-};
+}
 
 const getById = async (
   projectId: string,

@@ -1,6 +1,6 @@
-import { generateSentences } from "./integration/generateSentences.ts";
-import { Project } from "./database/Project.ts";
-import { ProjectSpeculation } from "./database/ProjectSpeculation.ts";
+import { generateSentences } from "./integration/generate-sentences.ts";
+import { Project } from "./database/project.ts";
+import { ProjectSpeculation } from "./database/project-speculation.ts";
 import { payloadValidation } from "./payloadValidation.ts";
 
 const corsHeaders = {

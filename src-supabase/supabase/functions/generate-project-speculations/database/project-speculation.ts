@@ -1,5 +1,5 @@
-import { IProject } from "./Project.ts";
-import { SupabaseClient } from "./supabaseClient.ts";
+import { IProject } from "./project.ts";
+import { SupabaseClient } from "./supabase.client.ts";
 
 const create = async (
   input: {
