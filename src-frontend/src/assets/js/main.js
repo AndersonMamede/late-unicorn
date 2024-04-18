@@ -1,32 +1,64 @@
-async function loadConfig() {
-    try {
-        const config = await getConfig();
-        validateAllConfigValuesAreSet(config);
-        window.CONFIG = config;
-    } catch (error) {
-        console.error(error);
-        window.document.body.innerHTML = `<div class="w-1/2 mx-auto text-3xl bg-gray-900 text-white">[ERROR]<br>${error.message}</div>`;
-    }
-}
+const APP = {
+    ready: false,
 
-function getConfig() {
-    return fetch("/config.json").then(response => {
+    callbacks: [],
+
+    config: {},
+
+    supabaseClient: null,
+
+    onReady: (callback) => {
+        if (APP.ready) {
+            callback();
+            return;
+        }
+
+        APP.callbacks.push(callback);
+    },
+
+    init: async () => {
+        try {
+            await helpers.loadConfig();
+
+            APP.supabaseClient = helpers.createSupabaseClient();
+        } catch (error) {
+            console.error(error);
+            window.document.body.innerHTML = `<div class="w-1/2 mx-auto text-3xl bg-gray-900 text-white">[ERROR]<br>${error.message}</div>`;
+            return;
+        }
+
+        APP.ready = true;
+        APP.callbacks.forEach(callback => callback());
+        APP.callbacks = [];
+    },
+};
+
+const helpers = {
+    createSupabaseClient: () => {
+        return supabase.createClient(APP.config.SUPABASE_API_URL, APP.config.SUPABASE_API_ANON_KEY);
+    },
+
+    loadConfig: async () => {
+        const config = await helpers.fetchConfig();
+        helpers.validateAllConfigValuesAreSet(config);
+        APP.config = config;
+    },
+
+    fetchConfig: () => fetch("/config.json").then(response => {
         if (!response.ok) {
             throw new Error(`Failed to load file config.json: ${response.status} - ${response.statusText}`);
         }
 
         return response.json();
-    });
-}
+    }),
 
-function validateAllConfigValuesAreSet(config) {
-    Object.keys(config).forEach(key => {
-        if (!config[key]) {
-            throw new Error(`Config value not set: ${key}. Check file config.json`);
-        }
-    });
-}
+    validateAllConfigValuesAreSet: (config) => {
+        Object.keys(config).forEach(key => {
+            if (!config[key]) {
+                throw new Error(`Config value not set: ${key}. Check file config.json`);
+            }
+        });
+    },        
+};
 
-(async () => {
-    await loadConfig();
-})();
+document.addEventListener("DOMContentLoaded", APP.init);
