@@ -18,9 +18,9 @@ const APP = {
 
     init: async () => {
         try {
-            await helpers.loadConfig();
+            await HELPERS.loadConfig();
 
-            APP.supabaseClient = helpers.createSupabaseClient();
+            APP.supabaseClient = HELPERS.createSupabaseClient();
         } catch (error) {
             console.error(error);
             window.document.body.innerHTML = `<div class="w-1/2 mx-auto text-3xl bg-gray-900 text-white">[ERROR]<br>${error.message}</div>`;
@@ -33,14 +33,14 @@ const APP = {
     },
 };
 
-const helpers = {
+const HELPERS = {
     createSupabaseClient: () => {
         return supabase.createClient(APP.config.SUPABASE_API_URL, APP.config.SUPABASE_API_ANON_KEY);
     },
 
     loadConfig: async () => {
-        const config = await helpers.fetchConfig();
-        helpers.validateAllConfigValuesAreSet(config);
+        const config = await HELPERS.fetchConfig();
+        HELPERS.validateAllConfigValuesAreSet(config);
         APP.config = config;
     },
 
