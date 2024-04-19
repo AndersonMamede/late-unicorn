@@ -50,6 +50,17 @@ const APP = {
 
         return true;
     },
+
+    signOut: async () => {
+        const { error } = await APP.supabaseClient.auth.signOut({ scope: "local" });
+
+        if (error) {
+            HELPERS.showFatalError(error.message);
+            return false;
+        }
+
+        return true;
+    },
 };
 
 const HELPERS = {
@@ -113,6 +124,9 @@ const HELPERS = {
                     document.querySelector(".navbar.--guest")?.classList.remove("hidden");
                     HELPERS.showGuestContent();
                 }
+                break;
+            case "SIGNED_OUT":
+                window.location.reload();
                 break;
         }
     },
