@@ -83,7 +83,16 @@ const HELPERS = {
                 throw new Error(`Config value not set: ${key}. Check file config.json`);
             }
         });
-    },        
+    },
+
+    getUser: async () => {
+        const { data: { session } } = await APP.supabaseClient.auth.getSession();
+        return session ? session?.user : null;
+    },
+
+    isUserAuthenticated: async () => {
+        return (await HELPERS.getUser()) !== null;
+    },
 };
 
 document.addEventListener("DOMContentLoaded", APP.init);
