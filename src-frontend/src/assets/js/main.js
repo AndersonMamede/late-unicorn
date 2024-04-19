@@ -23,7 +23,7 @@ const APP = {
             APP.supabaseClient = HELPERS.createSupabaseClient();
         } catch (error) {
             console.error(error);
-            window.document.body.innerHTML = `<div class="w-1/2 mx-auto text-3xl bg-gray-900 text-white">[ERROR]<br>${error.message}</div>`;
+            HELPERS.showFatalError(error.message);
             return;
         }
 
@@ -34,6 +34,15 @@ const APP = {
 };
 
 const HELPERS = {
+    showFatalError: (message) => {
+        // replace all the page content with the error message...
+        document.body.innerHTML = `
+            <div class="h-full flex items-center justify-center text-3xl bg-gray-900 text-white">
+                <p>[ERROR]<br>${message}<p>
+            </div>
+        `;
+    },
+
     createSupabaseClient: () => {
         return supabase.createClient(APP.config.SUPABASE_API_URL, APP.config.SUPABASE_API_ANON_KEY);
     },
