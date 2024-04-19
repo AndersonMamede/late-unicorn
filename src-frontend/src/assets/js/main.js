@@ -27,7 +27,10 @@ const APP = {
             return;
         }
 
+        APP.supabaseClient.auth.onAuthStateChange(HELPERS.handleAuthStateChange);
+
         APP.ready = true;
+
         APP.callbacks.forEach(callback => callback());
         APP.callbacks = [];
     },
@@ -96,6 +99,22 @@ const HELPERS = {
 
     isUserAuthenticated: async () => {
         return (await HELPERS.getUser()) !== null;
+    },
+
+    handleAuthStateChange: async (event) => {
+        switch (event) {
+            case "INITIAL_SESSION":
+                document.querySelector("#navbar-spinner")?.remove();
+
+                if (await HELPERS.isUserAuthenticated()) {
+                    document.querySelector(".navbar.--authenticated")?.classList.remove("hidden");
+                    HELPERS.showAuthenticatedContent();
+                } else {
+                    document.querySelector(".navbar.--guest")?.classList.remove("hidden");
+                    HELPERS.showGuestContent();
+                }
+                break;
+        }
     },
 
     showGuestContent: () => {
