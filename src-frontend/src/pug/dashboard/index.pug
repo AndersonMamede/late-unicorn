@@ -10,8 +10,12 @@ html(lang="en")
         script(defer, src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2")
         script(defer, src="/js/main.js")
         script(defer, src="/js/dashboard.js")
-    body(class="antialiased bg-body text-body font-body bg-gray-900")
+    body(class="--authenticated-content antialiased bg-body text-body font-body bg-gray-900")
+        div(class="--spinner flex items-center justify-center h-full")
+            img(class="w-20 h-20 inline-block animate-spin", src="/images/spinner.svg", alt="")
+
         div(class="")
+            - var disableNavbarButtons = ["dashboard"];
             include ../partials/navbar.pug
 
             section(class="pb-8 overflow-hidden")

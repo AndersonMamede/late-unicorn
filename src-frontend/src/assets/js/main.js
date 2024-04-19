@@ -57,6 +57,10 @@ const HELPERS = {
                 <p>[ERROR]<br>${message}<p>
             </div>
         `;
+
+        // show guest and authenticated content since all the page content was replaced with the fatal error message
+        HELPERS.showGuestContent();
+        HELPERS.showAuthenticatedContent();
     },
 
     createSupabaseClient: () => {
@@ -92,6 +96,16 @@ const HELPERS = {
 
     isUserAuthenticated: async () => {
         return (await HELPERS.getUser()) !== null;
+    },
+
+    showGuestContent: () => {
+        const className = "--guest-content";
+        document.querySelectorAll(`.${className}`).forEach(element => element.classList.remove(className));
+    },
+
+    showAuthenticatedContent: () => {
+        const className = "--authenticated-content";
+        document.querySelectorAll(`.${className}`).forEach(element => element.classList.remove(className));
     },
 };
 

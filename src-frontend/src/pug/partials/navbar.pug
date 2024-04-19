@@ -1,3 +1,4 @@
+- var disableNavbarButtons = disableNavbarButtons || [];
 section(class="py-4 overflow-hidden")
     div(class="container mx-auto px-4")
         div(class="flex items-center justify-between px-6 py-3.5 rounded-full")
@@ -6,10 +7,24 @@ section(class="py-4 overflow-hidden")
                     div(class="w-auto")
                         a(href="/")
                             img(src="/images/logo.svg", alt="")
-            div(class="flex flex-wrap items-center")
-                div(class="w-auto block")
-                    div(class="flex flex-wrap -m-2")
-                        div(class="w-full md:w-auto p-2")
-                            a(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 border border-gray-800 rounded-full", href="/login/") Login
-                        div(class="w-full md:w-auto p-2")
-                            a(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full", href="/login/") Get Started
+
+            img(id="navbar-spinner", class="w-12 h-12 inline-block animate-spin", src="/images/spinner.svg", alt="")
+
+            div(class="navbar --guest hidden w-auto")
+                div(class="flex flex-wrap items-center")
+                    div(class="w-auto block")
+                        div(class="flex flex-wrap -m-2")
+                            div(class="w-full md:w-auto p-2")
+                                a(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 border border-gray-800 rounded-full", href="/login/") Login
+                            div(class="w-full md:w-auto p-2")
+                                a(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full", href="/login/") Get Started
+
+            div(class="navbar --authenticated hidden w-auto")
+                div(class="flex flex-wrap items-center")
+                    div(class="w-auto block")
+                        div(class="flex flex-wrap -m-2")
+                            div(class="w-full md:w-auto p-2")
+                                button(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 border border-gray-800 rounded-full") Logout
+                            unless disableNavbarButtons.includes("dashboard")
+                                div(class="w-full md:w-auto p-2")
+                                    a(class="block w-full px-6 py-2.5 text-md text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full", href="/dashboard/") Dashboard
