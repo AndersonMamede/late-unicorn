@@ -31,6 +31,22 @@ const APP = {
         APP.callbacks.forEach(callback => callback());
         APP.callbacks = [];
     },
+
+    signInWithGoogle: async () => {
+        const { error } = await APP.supabaseClient.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: `${window.location.origin}/dashboard/`,
+            },
+        });
+
+        if (error) {
+            HELPERS.showFatalError(error.message);
+            return false;
+        }
+
+        return true;
+    },
 };
 
 const HELPERS = {
