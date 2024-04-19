@@ -1,0 +1,24 @@
+html(lang="en")
+    head
+        title Manage project # - LateUnicorn.com
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        link(rel="preconnect", href="https://fonts.gstatic.com")
+        link(href="https://fonts.cdnfonts.com/css/satoshi?styles=135009,135005,135007,135002,135000", rel="stylesheet")
+        link(rel="stylesheet", href="/css/tailwind/tailwind.min.css")
+        link(rel="icon", type="image/png", sizes="32x32", href="/favicon.png")
+        script(defer, src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2")
+        script(defer, src="/js/main.js")
+    body(class="antialiased bg-body text-body font-body bg-gray-900")
+        div(class="")
+            - var disableNavbarButtons = ["dashboard"];
+            include ../partials/navbar.pug
+
+            section(class="pb-8 overflow-hidden")
+                div(class="container mx-auto px-4")
+                    div(class="py-16 px-8 bg-gray-800 rounded-3xl")
+                        div(class="max-w-7xl mx-auto")
+                            div(class="-mt-2")
+                                a(class="px-6 py-3 text-md text-center text-white font-bold bg-gray-700 hover:bg-gray-500 focus:ring-4 focus:ring-gray-300 rounded-full", href="/dashboard/") < Back to dashboard
+                            div(class="mt-10 mb-10 mx-auto")
+                                h2(class="font-heading mb-6 text-4xl md:text-5xl lg:text-6xl text-white font-black tracking-tight") Add/Edit Project
