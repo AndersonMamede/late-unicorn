@@ -36,11 +36,12 @@ const APP = {
     },
 
     signInWithGoogle: async () => {
+        // redirect to the previous page, or the dashboard if there is no previous page
+        const redirectTo = document.referrer || `${window.location.origin}/dashboard/`;
+
         const { error } = await APP.supabaseClient.auth.signInWithOAuth({
             provider: "google",
-            options: {
-                redirectTo: `${window.location.origin}/dashboard/`,
-            },
+            options: { redirectTo },
         });
 
         if (error) {
