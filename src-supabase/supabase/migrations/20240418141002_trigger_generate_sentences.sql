@@ -57,8 +57,9 @@ BEGIN
     
     -- Make request to edge function
     PERFORM net.http_post(
-        api_url,
-        format('{ "projectId": "%s"}', NEW.project_id)::JSONB
+        url := api_url,
+        body := format('{ "projectId": "%s"}', NEW.project_id)::JSONB,
+        timeout_milliseconds := 60000
     ) AS request_id;
 
     RETURN NEW;
