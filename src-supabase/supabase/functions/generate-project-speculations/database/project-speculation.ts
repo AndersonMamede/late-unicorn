@@ -9,6 +9,7 @@ const create = async (
 ) => {
   const sentences = input.sentences ?? [];
   const values = sentences.map((sentence) => ({
+    user_id: input.project.user_id,
     project_id: input.project.project_id,
     sentence,
   }));
