@@ -2,6 +2,7 @@ import { SupabaseClient } from "./supabase.client.ts";
 
 export interface IProject {
   project_id: string;
+  user_id: string;
   name: string;
   description: string;
 }
@@ -11,7 +12,7 @@ const getById = async (
 ): Promise<IProject | null> => {
   const { data, error } = await SupabaseClient()
     .from("project")
-    .select("project_id, name, description").eq("project_id", projectId).limit(
+    .select("project_id, user_id, name, description").eq("project_id", projectId).limit(
       1,
     );
 
