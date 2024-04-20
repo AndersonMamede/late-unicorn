@@ -2,6 +2,7 @@ import { SupabaseClient } from "./supabase.client.ts";
 
 export interface IProject {
   project_id: string;
+  user_id: string;
   name: string;
   description: string;
 }
