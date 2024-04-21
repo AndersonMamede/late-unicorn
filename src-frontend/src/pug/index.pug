@@ -43,22 +43,23 @@ html(lang="en")
                                 div(class="w-full mt-20 text-center")
                                     img(class="w-20 h-20 inline-block animate-spin", src="/images/spinner.svg", alt="")
 
-                                div(id="project_card_template", class="hidden")
-                                    //- This is the template that is used to generate project cards in the JS. The JS code will
-                                    //- clone this template and fill it with the project data and then append it to the project list
-                                    div(class="w-full md:w-1/2 p-4")
-                                        div(class="p-8 h-full bg-gray-900 rounded-3xl")
-                                            div(class="flex flex-wrap -m-3")
-                                                div(class="w-auto p-3")
-                                                    a(href="{url}")
-                                                        img(class="w-44", alt="{name}", title="{name}", {cover_attr_src}="{cover_url}")
-                                                div(class="flex-1 mt-2 p-3")
-                                                    div(class="flex flex-col justify-between h-full")
-                                                        div(class="flex-initial")
-                                                            p(class="mb-3 text-xs text-gray-500 font-bold") {categories}
-                                                            a(class="group inline-block" href="{url}")
-                                                                h3(class="font-heading text-xl text-white hover:text-gray-200 group-hover:underline font-black") {name}
-                                                            a(class="group inline-block" href="{url}")
-                                                                p(class="text-sm text-gray-400 hover:text-gray-300 group-hover:underline") {description}
-
             include partials/footer.pug
+
+        div(id="project_card_template", class="hidden")
+            //- This is the template that is used to generate content in the JS. The JS code will
+            //- clone this template and fill it with data and then append it to the page
+            div(class="w-full md:w-1/2 p-4")
+                div(class="p-8 h-full bg-gray-900 rounded-3xl")
+                    div(class="flex flex-wrap -m-3")
+                        div(class="w-auto p-3")
+                            a(href="{url}")
+                                img(class="w-44", alt="{name}", title="{name}", {cover_attr_src}="{cover_url}")
+                        div(class="flex-1 mt-2 p-3")
+                            div(class="flex flex-col justify-between h-full")
+                                div(class="flex-initial")
+                                    p(class="mb-3 text-xs text-gray-500 font-bold") {categories}
+                                    a(class="group inline-block" href="{url}")
+                                        h3(class="font-heading text-xl text-white hover:text-gray-200 group-hover:underline font-black") {name}
+                                    a(class="group inline-block" href="{url}")
+                                        p(class="text-sm text-gray-400 hover:text-gray-300 group-hover:underline") {description}
+
