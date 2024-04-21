@@ -181,6 +181,27 @@ const DATABASE = {
         
         return data;
     },
+
+    getCurrentUserProjects: async () => {
+        const user = await HELPERS.getUser();
+
+        if (!user) {
+            return [];
+        }
+
+        const { data, error } = await APP.supabaseClient
+            .from("project")
+            .select("project_id, name")
+            .eq("user_id", user.id)
+            .order("name", { ascending: true });
+        
+        if (error) {
+            console.error(error);
+            throw new Error(error.message);
+        }
+        
+        return data;
+    },
 };
 
 document.addEventListener("DOMContentLoaded", APP.init);
