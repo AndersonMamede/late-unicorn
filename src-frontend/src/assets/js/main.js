@@ -141,6 +141,46 @@ const HELPERS = {
         const className = "--authenticated-content";
         document.querySelectorAll(`.${className}`).forEach(element => element.classList.remove(className));
     },
+
+    parseTemplate: (template, data) => {
+        // Replace all the placeholders with the values from the data object.
+        // Placeholders are in the format {key} and the key must match the key in the data object, otherwise
+        // the placeholder is not replaced
+        return template.replace(/\{([^}]+)\}/g, (placeholder, key) => {
+            return key in data ? HELPERS.escapeHTML(data[key]) : placeholder;
+        });
+    },
+
+    escapeHTML: (value) => {
+        if (typeof value !== "string") {
+            return value;
+        }
+
+        // replace all the special characters with their HTML entities to prevent XSS attacks
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    },
+};
+
+const DATABASE = {
+    getPublishedProjects: async() => {
+        const { data, error } = await APP.supabaseClient
+            .from("project")
+            .select("project_id, name, description, project_category(category(name))")
+            .eq("published", true)
+            .order("project_id", { ascending: false });
+        
+        if (error) {
+            console.error(error);
+            throw new Error(error.message);
+        }
+        
+        return data;
+    },
 };
 
 document.addEventListener("DOMContentLoaded", APP.init);
