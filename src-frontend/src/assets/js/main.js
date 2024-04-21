@@ -164,6 +164,14 @@ const HELPERS = {
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     },
+
+    formatNumber: (number, addDecimals) => {
+        // return a number in format 123.456.789, or 123.456.789,00 if it has decimals different than 0 or addDecimals is true
+        return new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: addDecimals ? 2 : 0,
+            maximumFractionDigits: addDecimals ? 2 : 0,
+        }).format(number);
+    },
 };
 
 const DATABASE = {
@@ -200,6 +208,23 @@ const DATABASE = {
             throw new Error(error.message);
         }
         
+        return data;
+    },
+    
+    getPublishedProjectById: async (projectId) => {
+        const { data, error } = await APP.supabaseClient
+            .from("project")
+            .select("*, project_category(category(name)), project_speculation(sentence)")
+            .eq("project_id", projectId)
+            .eq("published", true)
+            .order("created_at", { ascending: true, foreignTable: "project_speculation" })
+            .maybeSingle();
+
+        if (error) {
+            console.error(error);
+            throw new Error(error.message);
+        }
+
         return data;
     },
 };
