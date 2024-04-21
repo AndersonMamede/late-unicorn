@@ -5,9 +5,9 @@ interface GenerateSentencesInput {
   project: IProject;
 
   /**
-   * Maximum character length of the sentences
+   * The target length of each sentence
    */
-  maxLength?: number;
+  targetLength?: number;
 
   /**
    * Maximum number of phrases that will be created
@@ -40,20 +40,20 @@ interface GenerateSentencesOutput {
 /**
  * Generates sentences based on the given project.
  * @param {IProject} project - The project for generating sentences.
- * @param {number} [maxLength=200] - The maximum length of each sentence. Default is 200.
+ * @param {number} [targetLength=400] - The target length of each sentence. Default is 400.
  * @param {string} [language='English'] - The language of the sentences. Default is 'English'.
  * @param {number} [maxSentences=3] - The maximum number of sentences to generate. Default is 3.
  * @param {number} [temperature=0.7] - The temperature for generating sentences. Default is 0.7.
- * @param {number} [maxTokens=700] - The maximum number of tokens for generating sentences. Default is 700.
+ * @param {number} [maxTokens=1000] - The maximum number of tokens for generating sentences. Default is 1000.
  * @returns An array of sentences or an empty array if unable to generate.
  */
 export const generateSentences = async ({
   project,
-  maxLength = 200,
+  targetLength = 400,
   language = "English",
   maxSentences = 3,
   temperature = 0.7,
-  maxTokens = 700,
+  maxTokens = 1000,
 }: GenerateSentencesInput): Promise<GenerateSentencesOutput> => {
   try {
     const client = new OpenAI({
@@ -66,15 +66,18 @@ export const generateSentences = async ({
         {
           role: "assistant",
           content:
-            "You are an actor and writer, and your specialty is being ironic.",
+            "You are an actor and writer, and your specialty is being ironic and bittersweet.",
         },
         {
           role: "system",
           content:
-            `You must create ironic sentences respecting the following rules.:\n
+            `You must create easy-to-read and ironically-bittersweet toned unique sentences about the fictitious future
+            of a discontinued project (like "what could have been if the project wasn't discontinued?"), respecting the following rules:\n
               - You must create ${maxSentences} sentences in ${language} regardless of the context's language.\n
+              - You must write the sentences in a straightforward and non-poetic manner, and using everyday language.\n
+              - The irony must be clear and easy to understand, and it should always be placed at the end of the sentence.\n
               - The sentences must contain the name of the project, which is: ${project.name}\n
-              - Each sentence must have a maximum of ${maxLength} characters.\n
+              - Each sentence must have about ${targetLength} characters.\n
               - The return must be in JSON format with the key 'sentences' containing an array of strings.\n
               - When unable to create sentences, return specifications with empty array.\n
               - You MUST ALWAYS return ${maxSentences} SENTENCES, you should not return just one.
