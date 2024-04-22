@@ -50,11 +50,6 @@ APP.onReady(async () => {
         }
 
         const project = await DATABASE.getPublishedProjectById(projectId);
-
-        if (!project) {
-            throw new Error("Project not found");
-        }
-
         renderProjectDetails(getNormalizedProject(project), project);
     } catch (error) {
         document.querySelector("#project-details").innerHTML = `

@@ -175,6 +175,20 @@ const HELPERS = {
 };
 
 const DATABASE = {
+    getAllCategories: async() => {
+        const { data, error } = await APP.supabaseClient
+            .from("category")
+            .select("category_id, name")
+            .order("name", { ascending: true });
+        
+        if (error) {
+            console.error(error);
+            throw new Error(error.message);
+        }
+        
+        return data;
+    },
+
     getPublishedProjects: async() => {
         const { data, error } = await APP.supabaseClient
             .from("project")
@@ -187,6 +201,26 @@ const DATABASE = {
             throw new Error(error.message);
         }
         
+        return data;
+    },
+
+    getPublishedProjectById: async (projectId) => {
+        const { data, error } = await APP.supabaseClient
+            .from("project")
+            .select("*, project_category(category(name)), project_speculation(sentence)")
+            .eq("project_id", projectId)
+            .eq("published", true)
+            .order("created_at", { ascending: true, foreignTable: "project_speculation" })
+            .maybeSingle();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        if (!data) {
+            throw new Error("Project not found");
+        }
+
         return data;
     },
 
@@ -210,22 +244,115 @@ const DATABASE = {
         
         return data;
     },
-    
-    getPublishedProjectById: async (projectId) => {
+
+    getCurrentUserProjectById: async (projectId) => {
+        const user = await HELPERS.getUser();
+
+        if (!user) {
+            throw new Error("You must be authenticated to access this page.");
+        }
+
         const { data, error } = await APP.supabaseClient
             .from("project")
-            .select("*, project_category(category(name)), project_speculation(sentence)")
+            .select("*, project_category(category(category_id, name))")
+            .eq("user_id", user.id)
             .eq("project_id", projectId)
-            .eq("published", true)
-            .order("created_at", { ascending: true, foreignTable: "project_speculation" })
             .maybeSingle();
-
+        
         if (error) {
-            console.error(error);
             throw new Error(error.message);
         }
 
+        if (!data) {
+            throw new Error("Project not found");
+        }
+
         return data;
+    },
+
+    insertProject: async (projectData, categoryIds) => {
+        const user = await HELPERS.getUser();
+
+        if (!user) {
+            throw new Error("You must be authenticated to save a project.");
+        }
+
+        const project = { ...projectData, user_id: user.id };
+
+        const { data: savedProject, error } = await APP.supabaseClient
+            .from("project")
+            .insert(project)
+            .select()
+            .single();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        if (categoryIds && categoryIds.length) {
+            await DATABASE.saveProjectCategories(savedProject.project_id, categoryIds);
+        }
+
+        return savedProject;
+    },
+
+    updateProject: async (projectId, projectData, categoryIds) => {
+        const user = await HELPERS.getUser();
+
+        if (!user) {
+            throw new Error("You must be authenticated to save a project.");
+        }
+
+        const project = { ...projectData };
+
+        const { data: updatedProject, error } = await APP.supabaseClient
+            .from("project")
+            .update(project)
+            .eq("project_id", projectId)
+            .select()
+            .single();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        if (categoryIds && categoryIds.length) {
+            await DATABASE.saveProjectCategories(updatedProject.project_id, categoryIds);
+        }
+
+        return updatedProject;
+    },
+
+    saveProjectCategories: async (projectId, categoryIds) => {
+        const user = await HELPERS.getUser();
+
+        if (!user) {
+            throw new Error("You must be authenticated to save project categories.");
+        }
+
+        const projectCategories = categoryIds.map(categoryId => ({
+            user_id: user.id,
+            project_id: projectId,
+            category_id: categoryId,
+        }));
+
+        const { error: errorDeletingCategories } = await APP.supabaseClient
+            .from("project_category")
+            .delete()
+            .eq("project_id", projectId)
+            .select();
+
+        if (errorDeletingCategories) {
+            throw new Error("Error: categories could not be saved.");
+        }
+
+        const { error: errorSavingCategories } = await APP.supabaseClient
+            .from("project_category")
+            .insert(projectCategories);
+
+        if (errorSavingCategories) {
+            throw new Error("Error: categories could not be saved.");
+        }
     },
 };
 
