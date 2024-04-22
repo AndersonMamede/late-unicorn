@@ -2,7 +2,7 @@
 
 [Late Unicorn](https://lateunicorn.com) is a digital space where developers and innovators can remember their projects that didn't work out. It's a place to celebrate the ideas and lessons from these projects, even if they didn’t make it to the finish line. Here, the tech community can look back, learn, and get inspired for their next big thing.
 
-<img src="/docs/demo.jpg" height="300" />
+https://github.com/AndersonMamede/late-unicorn/assets/10933667/8db0c282-f94b-4341-89ed-e490dd7ccd23
 
 ## 1. Supabase setup
 
