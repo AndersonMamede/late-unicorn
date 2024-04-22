@@ -49,7 +49,7 @@ jobs:
             SUPABASE_API_ANON_KEY: ${{ secrets.SUPABASE_API_ANON_KEY }}
         run: | 
           ls
-          sed -i "s/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-URL/${SUPABASE_API_URL}/g" src/assets/config.json
+          sed -i "s/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-URL/${{ vars. SUPABASE_API_URL }}/g" src/assets/config.json
           sed -i "s/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-ANON-KEY/${SUPABASE_API_ANON_KEY}/g" src/assets/config.json
           npm ci
           npm run build
