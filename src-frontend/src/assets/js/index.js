@@ -6,8 +6,7 @@ function getProjectHTML(project) {
         url: `/project/?q=${project.project_id}&n=${project.name}`,
         categories: project.project_category.map((category) => `#${category.category.name}`).join(" "),
         description: project.description.length > 130 ? `${project.description.slice(0, 130)}...` : project.description,
-        cover_attr_src: "src",
-        cover_url: "/temp/img9.png", // @TODO
+        name_first_letter: project.name[0].toUpperCase(),
     };
 
     return HELPERS.parseTemplate(template, data);

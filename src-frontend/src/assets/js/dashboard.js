@@ -4,8 +4,7 @@ function getProjectHTML(project) {
     const data = {
         ...project,
         url: `/manage-project/?q=${project.project_id}&n=${project.name}`,
-        cover_attr_src: "src",
-        cover_url: "/temp/img9.png", // @TODO
+        name_first_letter: project.name[0].toUpperCase(),
     };
 
     return HELPERS.parseTemplate(template, data);

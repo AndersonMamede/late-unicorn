@@ -39,7 +39,7 @@ html(lang="en")
             div(class="w-full md:w-1/3 p-4")
                 div(class="h-full bg-gray-900 rounded-3xl")
                     a(href="{url}")
-                        img(class="w-full" alt="{name}", title="{name}", {cover_attr_src}="{cover_url}")
+                        div(class="w-full h-40 flex items-center justify-center text-gray-200 font-bold text-6xl bg-gray-600 rounded-sm hover:bg-gray-400 hover:text-gray-700") {name_first_letter}
                     div(class="p-8")
                         a(class="group inline-block", href="{url}")
-                            h3(class="font-heading text-2xl text-white hover:text-gray-200 group-hover:underline font-black") {name}
+                            h3(class="font-heading text-xl text-white hover:text-gray-200 group-hover:underline font-black") {name}

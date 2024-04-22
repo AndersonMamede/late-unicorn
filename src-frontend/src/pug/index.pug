@@ -28,7 +28,7 @@ html(lang="en")
                                     h1(class="font-heading mb-6 text-4xl md:text-5xl text-white font-black tracking-tight")
                                         span Explore the untold stories of projects and ideas that&nbsp;
                                         span(class="text-blue-500") almost changed the world
-                                    p(class="mb-8 text-xl text-gray-500 font-bold") Preserve the memories of your projects that didn't make it. They might be dead, but their history is worth sharing, and their legacy may inspire new initiatives!
+                                    p(class="mb-8 text-xl text-gray-500 font-bold") Preserve the memories of the projects that didn't make it. They might be dead, but their history is worth sharing, and their legacy may inspire new initiatives!
                                     div(class="flex flex-wrap justify-center -m-2")
                                         div(class="w-full md:w-auto p-2")
                                             a(class="block w-full px-6 py-3 text-md text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full", href="/login/") Get Started
@@ -53,13 +53,13 @@ html(lang="en")
                     div(class="flex flex-wrap -m-3")
                         div(class="w-auto p-3")
                             a(href="{url}")
-                                img(class="w-44", alt="{name}", title="{name}", {cover_attr_src}="{cover_url}")
+                                div(class="w-44 h-36 flex items-center justify-center text-gray-400 font-bold text-6xl bg-gray-800 rounded-sm hover:bg-gray-700 hover:text-white") {name_first_letter}
                         div(class="flex-1 mt-2 p-3")
                             div(class="flex flex-col justify-between h-full")
                                 div(class="flex-initial")
-                                    p(class="mb-3 text-xs text-gray-500 font-bold") {categories}
-                                    a(class="group inline-block" href="{url}")
+                                    p(class="mb-2 text-xs text-gray-500 font-bold") {categories}
+                                    a(class="mb-1 group inline-block" href="{url}")
                                         h3(class="font-heading text-xl text-white hover:text-gray-200 group-hover:underline font-black") {name}
                                     a(class="group inline-block" href="{url}")
-                                        p(class="text-sm text-gray-400 hover:text-gray-300 group-hover:underline") {description}
+                                        p(class="text-md text-gray-400 hover:text-gray-300 group-hover:underline") {description}
 
