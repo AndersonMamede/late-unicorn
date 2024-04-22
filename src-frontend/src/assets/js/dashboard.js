@@ -13,7 +13,14 @@ function getProjectHTML(project) {
 
 async function renderProjectList() {
     const projects = await DATABASE.getCurrentUserProjects();
-    document.querySelector("#project-list").innerHTML = projects.map(getProjectHTML).join("");
+
+    if (projects.length) {
+        document.querySelector("#project-list").innerHTML = projects.map(getProjectHTML).join("");
+    } else {
+        document.querySelector("#project-list").innerHTML = `
+            <div class="w-full mt-20 text-gray-400 text-2xl text-center">You have not created any projects yet.</div>
+        `;
+    }
 }
 
 APP.onReady(async () => {
