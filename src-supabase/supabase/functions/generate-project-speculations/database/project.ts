@@ -12,9 +12,9 @@ const getById = async (
 ): Promise<IProject | null> => {
   const { data, error } = await SupabaseClient()
     .from("project")
-    .select("project_id, user_id, name, description").eq("project_id", projectId).limit(
-      1,
-    );
+    .select("project_id, user_id, name, description, project_speculation(project_speculation_id)")
+    .eq("project_id", projectId)
+    .limit(1);
 
   if (error) {
     throw new Error(error.message);
