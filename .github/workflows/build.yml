@@ -46,6 +46,8 @@ jobs:
         working-directory: ./src-frontend
         run: | 
           ls
+          sed -i 's/ADD-YOUR-SUPABASE-API-URL/${{ secrets.SUPABASE_API_URL }}/g' src/assets/config.json
+          sed -i 's/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-ANON-KEY/${{ secrets.SUPABASE_API_ANON_KEY }}/g' src/assets/config.json
           npm ci
           npm run build
 
