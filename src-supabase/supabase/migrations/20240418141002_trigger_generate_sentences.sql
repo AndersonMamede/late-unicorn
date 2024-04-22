@@ -7,7 +7,8 @@ DROP FUNCTION IF EXISTS public.set_edge_function_url_secret CASCADE;
 CREATE OR REPLACE FUNCTION public.set_edge_function_url_secret(
     secret_name text,
     secret_value text
-) RETURNS text AS $$
+) RETURNS text
+SECURITY DEFINER AS $$
 DECLARE
     secret_id uuid;
     existing_secret RECORD;
@@ -43,7 +44,8 @@ $$ LANGUAGE plpgsql;
 
 -- The function makes a request to the edge function to create sentences.
 CREATE OR REPLACE FUNCTION public.generate_sentences()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+SECURITY DEFINER AS $$
 DECLARE
     api_url varchar;
 BEGIN
