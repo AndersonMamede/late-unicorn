@@ -162,6 +162,8 @@ APP.onReady(async () => {
         if (projectId) {
             const project = await DATABASE.getCurrentUserProjectById(projectId);
             showProjectData(project);
+        } else {
+            document.querySelector(`#published`).checked = true;
         }
     } catch (error) {
         document.querySelector("#project-form-container").innerHTML = `
