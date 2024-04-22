@@ -17,22 +17,28 @@ CREATE TABLE public.project(
   total_users integer NOT NULL DEFAULT 0,
   total_revenue integer NOT NULL DEFAULT 0,
   founders VARCHAR(100) NOT NULL DEFAULT '',
-  technologies VARCHAR(300) NOT NULL DEFAULT '',
+  technologies VARCHAR(500) NOT NULL DEFAULT '',
+  features VARCHAR(500) NOT NULL DEFAULT '',
+  failures VARCHAR(500) NOT NULL DEFAULT '',
   learnings VARCHAR(500) NOT NULL DEFAULT ''
 );
 ALTER TABLE project ADD CONSTRAINT fk_project_user_id
   FOREIGN KEY (user_id) REFERENCES auth.users(id)
   ON DELETE RESTRICT;
 
-CREATE TABLE public.project_scheenshot(
-  project_scheenshot_id serial PRIMARY KEY NOT NULL,
+CREATE TABLE public.project_screenshot(
+  project_screenshot_id serial PRIMARY KEY NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,
+  user_id uuid NOT NULL,
   project_id integer NOT NULL,
   url VARCHAR(500) NOT NULL
 );
-ALTER TABLE project_scheenshot ADD CONSTRAINT fk_project_scheenshot_project_id
+ALTER TABLE project_screenshot ADD CONSTRAINT fk_project_screenshot_user_id
+  FOREIGN KEY (user_id) REFERENCES auth.users(id)
+  ON DELETE RESTRICT;
+ALTER TABLE project_screenshot ADD CONSTRAINT fk_project_screenshot_project_id
   FOREIGN KEY (project_id) REFERENCES public.project(project_id)
   ON DELETE RESTRICT;
 
@@ -41,9 +47,13 @@ CREATE TABLE public.project_category(
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,
+  user_id uuid NOT NULL,
   project_id integer NOT NULL,
   category_id integer NOT NULL
 );
+ALTER TABLE project_category ADD CONSTRAINT fk_project_category_user_id
+  FOREIGN KEY (user_id) REFERENCES auth.users(id)
+  ON DELETE RESTRICT;
 ALTER TABLE project_category ADD CONSTRAINT fk_project_category_project_id
   FOREIGN KEY (project_id) REFERENCES public.project(project_id)
   ON DELETE RESTRICT;
@@ -56,9 +66,13 @@ CREATE TABLE public.project_speculation(
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,
+  user_id uuid NOT NULL,
   project_id integer NOT NULL,
   sentence VARCHAR(500) NOT NULL DEFAULT ''
 );
+ALTER TABLE project_speculation ADD CONSTRAINT fk_project_speculation_user_id
+  FOREIGN KEY (user_id) REFERENCES auth.users(id)
+  ON DELETE RESTRICT;
 ALTER TABLE project_speculation ADD CONSTRAINT fk_project_speculation_project_id
   FOREIGN KEY (project_id) REFERENCES public.project(project_id)
   ON DELETE RESTRICT;
