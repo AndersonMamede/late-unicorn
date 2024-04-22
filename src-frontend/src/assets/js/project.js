@@ -61,7 +61,7 @@ APP.onReady(async () => {
             <div class="font-heading text-4xl text-white text-center">${error.message}</div>
         `;
     } finally {
-        document.querySelector("#project-spinner").remove();
+        document.querySelector("#project-spinner")?.remove();
         document.querySelector("#project-details").classList.remove("hidden");
     }
 });

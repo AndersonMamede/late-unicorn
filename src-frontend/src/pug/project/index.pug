@@ -61,11 +61,11 @@ html(lang="en")
                                             div(class="p-10 bg-gray-900 rounded-3xl")
                                                 div(class="flex flex-wrap -m-2")
                                                     div(class="w-full md:w-1/2 p-2")
-                                                        h2(class="font-heading mb-2 text-2xl text-gray-600 font-black") Point of failures:
+                                                        h2(class="font-heading mb-2 text-2xl text-gray-600 font-black") What went wrong:
                                                         p(data-failures="", class="text-gray-100 text-xl font-bold")
                                                     div(class="w-full md:w-1/2 md:pl-8")
                                                         div(class="w-full p-2")
-                                                            h2(class="font-heading mb-2 text-2xl text-gray-600 font-black") Main learnings:
+                                                            h2(class="font-heading mb-2 text-2xl text-gray-600 font-black") Lessons learned:
                                                             p(data-learnings="", class="text-gray-100 text-xl font-bold")
                                         div(id="speculation-section", class="w-full p-3 hidden")
                                             div(class="p-10 bg-gray-900 rounded-3xl")
@@ -81,7 +81,7 @@ html(lang="en")
         div(id="category_chip_template", class="hidden")
             //- This is the template that is used to generate content in the JS. The JS code will
             //- clone this template and fill it with data and then append it to the page
-            li(class="w-auto p-3")
+            li(class="w-auto pt-2 px-1")
                 span(class="inline-block px-8 py-3.5 text-lg text-white hover:text-gray-900 font-bold bg-gray-900 hover:bg-white rounded-full") {name}
 
         div(id="speculation_template", class="hidden")
