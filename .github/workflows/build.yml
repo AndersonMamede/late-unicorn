@@ -44,13 +44,10 @@ jobs:
 
       - name: Install dependencies and build
         working-directory: ./src-frontend
-        env:
-            SUPABASE_API_URL: ${{ secrets.SUPABASE_API_URL }}
-            SUPABASE_API_ANON_KEY: ${{ secrets.SUPABASE_API_ANON_KEY }}
         run: | 
           ls
-          sed -i "s/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-URL/${{ vars.SUPABASE_API_URL }}/g" src/assets/config.json
-          sed -i "s/REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-ANON-KEY/${SUPABASE_API_ANON_KEY}/g" src/assets/config.json
+          sed -i 's|REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-URL|${{ vars.SUPABASE_API_URL }}|g' src/assets/config.json
+          sed -i 's|REPLACE-WITH-YOUR-PROJECT-SUPABASE-API-ANON-KEY|${{ vars.SUPABASE_API_ANON_KEY }}|g' src/assets/config.json
           npm ci
           npm run build
 
