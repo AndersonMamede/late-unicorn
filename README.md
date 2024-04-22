@@ -1,4 +1,6 @@
-# Late Unicorn - [lateunicorn.com](https://lateunicorn.com)
+# Late Unicorn
+
+[Late Unicorn](https://lateunicorn.com) is a digital space where developers and innovators can remember their projects that didn't work out. It's a place to celebrate the ideas and lessons from these projects, even if they didn’t make it to the finish line. Here, the tech community can look back, learn, and get inspired for their next big thing.
 
 ## 1. Supabase setup
 
