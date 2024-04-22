@@ -1,0 +1,24 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.--spinner {
+    display: none;
+}
+
+.--guest-content > .--spinner,
+.--authenticated-content > .--spinner {
+    display: block;
+}
+
+.--guest-content > .--spinner.flex,
+.--authenticated-content > .--spinner.flex {
+    display: flex;
+}
+
+.--guest-content > *:not(.--spinner),
+.--authenticated-content > *:not(.--spinner) {
+    display: none;
+}
