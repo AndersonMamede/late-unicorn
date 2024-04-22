@@ -2,6 +2,8 @@
 
 [Late Unicorn](https://lateunicorn.com) is a digital space where developers and innovators can remember their projects that didn't work out. It's a place to celebrate the ideas and lessons from these projects, even if they didn’t make it to the finish line. Here, the tech community can look back, learn, and get inspired for their next big thing.
 
+<img src="/docs/demo.jpg" height="300" />
+
 ## 1. Supabase setup
 
 This project uses [Supabase](https://supabase.com/) as the backend (Edge Functions), database (PostgreSQL), and authentication (Google OAuth) provider. To set up this project, both the frontend and backend projects need to be configured. Before starting, the following requirement(s) need to be met in Supabase:
