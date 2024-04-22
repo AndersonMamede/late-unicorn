@@ -5,6 +5,7 @@ export interface IProject {
   user_id: string;
   name: string;
   description: string;
+  project_speculation: Record<string, number>[];
 }
 
 const getById = async (
