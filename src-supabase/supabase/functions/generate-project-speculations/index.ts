@@ -42,6 +42,14 @@ const handleRequest = async (req: Request) => {
       });
     }
 
+    // If the project already has speculations, return 204 so no new ones are generated
+    if (project.project_speculation?.length) {
+      return new Response(null, {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 204, // it's not an error, but there's no content to generate/return
+      });
+    }
+
     const { sentences } = await generateSentences({ project });
     await ProjectSpeculation.create({ project, sentences });
 
