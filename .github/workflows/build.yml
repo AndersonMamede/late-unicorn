@@ -6,7 +6,7 @@ on:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["main"]
+    branches: ["main"] # remove
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -41,10 +41,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd src-frontend
-      - run: ls
-      - run: npm ci
-      - run: npm run build
+      - name: Install dependencies and build
+        working-directory: ./src-frontend
+        run: | 
+          ls
+          npm ci
+          npm run build
       
     #   - name: Setup Pages
     #     uses: actions/configure-pages@v5
